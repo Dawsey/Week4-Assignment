@@ -38,7 +38,7 @@ library(readr)
     finalData <- combined.df %>%
                     group_by(subject, activity_id, activity) %>%
                     summarise_all(funs(mean)) 
-        
+
     # Tidy the data
         finalData <- finalData[,-2] # Remove the Activity ID leaving only the description
         names(finalData) <- (gsub("[()]","", names(finalData))) # Remove parenthesis
@@ -55,4 +55,7 @@ library(readr)
         # Check for completeness
         summary(complete.cases(finalData)) 
         # 180 True (i.e no missing cases)
+
+# Export data
+        write.table(finalData, "finalData.txt", row.names = FALSE)
         
