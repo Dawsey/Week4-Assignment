@@ -44,4 +44,4 @@ There was not a large amount of changes required here, since the code book defin
 
 ### 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
 
-Summarising the data was done Using the `dplyr` package grouping on `subject`, `activity_id` and `activity`. The `summarise_all(funs(mean))` function then calculated the mean of all other variables.
+Summarising the data was done using the `dplyr` package grouping on `subject`, `activity_id` and `activity`. The `summarise_all(funs(mean))` function then calculated the mean of all other variables.
