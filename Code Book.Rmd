@@ -1,0 +1,30 @@
+---
+# title: "Code Book for Assignment 4 - Getting and Cleaning Data"
+output: html_notebook
+---
+## Data Summary
+
+The original data was obtained from http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones.
+
+There are `r ncol(finalData)` variables in the final data set. Each subject (30 of them) undertook six activities which therefore provides 6 x 30 = `r 6*30` rows.
+
+The first 5 rows are provided in the following table.
+
+```{r}
+head(finalData,5)
+```
+
+
+## Unit of Measure
+
+The original units are compiled from normalised z-scores (min = -1 and max = 1) this can be demonstrated by using the `summary` function on the original data set. 
+
+The final dataset provides the mean value of these scores. The class of variables is integer for `subject`, character for 'activity' and numeric for all remaining variables.
+
+## Variables
+
+All variables for the final data set are provided below.
+
+```{r echo=TRUE}
+    names(finalData)
+```
