@@ -1,5 +1,19 @@
 # Week 4 Assignment run_analysis
 
+#Download the data
+    filename <- "Assignment4_Final.zip"
+
+# Checking if archieve already exists.
+    if (!file.exists(filename)){
+        fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+        download.file(fileURL, filename, method="curl")
+    }  
+
+# Checking if the unzipped folder exists and unzip if it doesn't
+    if (!file.exists("UCI HAR Dataset")) { 
+        unzip(filename) 
+    }
+
 library(readr)
 # Read in the data and set column names on import
     features <- read_table2("./UCI HAR Dataset/features.txt", 
@@ -21,12 +35,11 @@ library(readr)
 
 # Merge the datasets
     xAll <- rbind(xTest, xTrain) # Combine the measurements
-    xAll <- xAll[,grep("mean|std", tolower(names(xAll)))] # tolower used as some means have capital M.
-    #xAll <- xAll[,grep("mean|std", names(xAll))] # remove only the lower case means and std.
+    xAll <- xAll[,grep("mean|std", tolower(names(xAll)))] # tolower used as some means have capital M and std have capital S.
     
     yAll <- rbind(yTest, yTrain) # Combine the activities
  
-    subjectAll <- rbind(subTest, subTrain) # Combine the subject IDs
+    subjectAll <- rbind(subTest, subTrain) # Combine the subjects
     
     combined.df <- cbind(subjectAll,yAll,xAll)
     combined.df <- merge(combined.df, activityLabels, 
@@ -39,7 +52,7 @@ library(readr)
                     group_by(subject, activity_id, activity) %>%
                     summarise_all(funs(mean)) 
 
-    # Tidy the data
+# Tidy the data
         finalData <- finalData[,-2] # Remove the Activity ID leaving only the description
         names(finalData) <- (gsub("[()]","", names(finalData))) # Remove parenthesis
         names(finalData) <- (gsub("X","Xaxis",names(finalData)))
